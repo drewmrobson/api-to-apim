@@ -21,6 +21,7 @@ const scriptPath = path.resolve(__dirname, 'run-bicep.sh');
 
 try {
   execFileSync('bash', [scriptPath, resourceGroup], {
+    cwd: process.cwd(),
     stdio: 'inherit'
   });
 } catch (err) {

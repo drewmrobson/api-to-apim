@@ -41,7 +41,6 @@
     "nunjucks"
   ],
   "dependencies": {
-    "api-to-apim": "file:api-to-apim-0.9.3.tgz",
     "js-yaml": "^4.1.1",
     "nunjucks": "^3.2.4"
   }
