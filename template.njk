@@ -1,0 +1,42 @@
+using 'main.bicep'
+
+param keyVaultName = '{{keyVaultName}}'
+param apiManagementName = '{{apiManagementName}}'
+param apiManagementLoggerName = '{{apiManagementLoggerName}}'
+param apiDisplayName = '{{apiDisplayName}}'
+param apiName = '{{apiName}}'
+param apiUrlSuffix = '{{apiUrlSuffix}}'
+param apiVersion = '{{apiVersion}}'
+param openApiTextContent = loadTextContent('{{openApi}}.yml')
+param openApiYamlContent = loadYamlContent('{{openApi}}.yml')
+param namedValues = [
+  {% for nv in namedValues %}{
+    key: '{{ nv.key }}'
+    value: '{{ nv.value }}'
+  }
+  {% endfor %}
+]
+param secretNamedValues = [
+  {% for s in secrets %}{
+    key: '{{ s.key }}'
+  }
+  {% endfor %}
+]
+param policyFragments = [
+{% for pf in policyFragments %}{
+    id: '{{ pf }}'
+    format: 'xml'
+    value: loadTextContent('fragments/{{ pf }}.xml')
+  }
+{% endfor %}]
+param operations = [
+  {% for o in operations %}{
+    operationName: '{{ o }}'
+    operationPoliciesTextContent: [
+      {
+        key: '{{ o }}'
+        value: loadTextContent('./{{ o }}.xml')
+      }
+    ]
+  }
+{% endfor %}]

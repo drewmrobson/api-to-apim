@@ -1,0 +1,48 @@
+{
+  "name": "api-to-apim",
+  "version": "0.9.3",
+  "description": "A CLI tool to deploy an API to Azure API Management given only an OpenAPI specification and XML Policy files.",
+  "license": "UNLICENSED",
+  "type": "commonjs",
+  "main": "api-to-apim.js",
+  "bin": {
+    "api-to-apim": "api-to-apim.js",
+    "generate-bicep": "generate-bicep.js",
+    "deploy-bicep": "deploy-bicep.js"
+  },
+  "files": [
+    "api-to-apim.js",
+    "generate-bicep.js",
+    "deploy-bicep.js",
+    "list-operations.sh",
+    "list-policy-dependencies.sh",
+    "template.njk",
+    "run-bicep.sh",
+    "main.bicep",
+    "api.bicep",
+    "named-values.bicep",
+    "policy-fragments.bicep"
+  ],
+  "scripts": {
+    "lint": "node --check api-to-apim.js && node --check generate-bicep.js && node --check deploy-bicep.js",
+    "generate": "node generate-bicep.js",
+    "deploy": "node deploy-bicep.js",
+    "pack:dry-run": "npm pack --dry-run"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "azure",
+    "apim",
+    "bicep",
+    "bicepparam",
+    "openapi",
+    "nunjucks"
+  ],
+  "dependencies": {
+    "api-to-apim": "file:api-to-apim-0.9.3.tgz",
+    "js-yaml": "^4.1.1",
+    "nunjucks": "^3.2.4"
+  }
+}
