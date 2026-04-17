@@ -1,0 +1,14 @@
+<policies>
+  <inbound>
+    <base />
+  </inbound>
+  <backend>
+    <include-fragment fragment-id="limit-concurrency-retry" />
+  </backend>
+  <outbound>
+    <base />
+  </outbound>
+  <on-error>
+    <base />
+  </on-error>
+</policies>

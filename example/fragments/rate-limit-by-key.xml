@@ -1,0 +1,11 @@
+<!-- Depends on
+- {{rate-limit-by-key-calls}}
+- {{rate-limit-by-key-renewal-period-seconds}} -->
+<fragment>
+  <rate-limit-by-key
+    calls="{{rate-limit-by-key-calls}}"
+    renewal-period="{{rate-limit-by-key-renewal-period-seconds}}" 
+    increment-condition="@(context.Response.StatusCode == 200)"
+    counter-key="@(context.Request.IpAddress)"
+    remaining-calls-variable-name="remaining-calls" />
+</fragment>

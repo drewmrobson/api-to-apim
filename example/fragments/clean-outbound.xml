@@ -1,0 +1,4 @@
+<fragment>
+  <set-header name="X-Powered-By" exists-action="delete" />
+  <set-header name="X-AspNet-Version" exists-action="delete" />
+</fragment>

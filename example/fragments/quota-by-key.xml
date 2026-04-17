@@ -1,0 +1,8 @@
+<!-- Depends on named values quota-by-key-calls quota-by-key-renewal-period-seconds -->
+<fragment>
+  <quota-by-key
+    calls="{{quota-by-key-calls}}"
+    renewal-period="{{quota-by-key-renewal-period-seconds}}"
+    counter-key="@(context.Subscription?.Key ?? &quot;anonymous&quot;)"
+    increment-condition="@(context.Response.StatusCode &gt;= 200 &amp;&amp; context.Response.StatusCode &lt; 300)" />
+</fragment>

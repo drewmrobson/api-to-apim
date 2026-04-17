@@ -1,0 +1,25 @@
+<fragment>
+  <!--Use consumer correlation id or generate new one-->
+  <set-variable name="correlation-id"
+    value="@(context.Request.Headers.GetValueOrDefault(&quot;x-correlation-id&quot;, Guid.NewGuid().ToString()))" />
+  <set-variable name="source-ip" value="@(context.Request.IpAddress)" />
+
+  <!--Set
+  header for end-to-end correlation-->
+  <set-header name="x-correlation-id" exists-action="override">
+    <value>@((string)context.Variables["correlation-id"])</value>
+  </set-header>
+
+  <set-header name="x-source-ip" exists-action="override">
+    <value>@((string)context.Variables["source-ip"])</value>
+  </set-header>
+
+  <!--Trace
+  the correlation id-->
+  <trace source="APIM Policy Trace" severity="information">
+    <message>@(String.Format("{0} | {1} | {2} | {3}", context.Api.Name, context.Operation.Name,
+      context.Variables["correlation-id"], context.Variables["source-ip"]))</message>
+    <metadata name="correlation-id" value="@((string)context.Variables[&quot;correlation-id&quot;])" />
+    <metadata name="source-ip" value="@((string)context.Variables[&quot;source-ip&quot;])" />
+  </trace>
+</fragment>

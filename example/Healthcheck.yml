@@ -1,0 +1,46 @@
+openapi: 3.0.1
+info:
+  version: "0.0.2"
+  title: Healthcheck
+  description: Healthcheck
+  contact:
+    name: Drew Robson
+    email: drew.robson@arinco.com.au
+tags:
+  - name: Healthcheck
+    description: Healthcheck
+paths:
+  /healthcheck:
+    get:
+      operationId: get-healthcheck
+      tags:
+        - Healthcheck
+      summary: Healthcheck
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "429":
+          description: Too Many Requests
+        "500":
+          description: Internal Server Error
+        "503":
+          description: Service Unavailable
+components:
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: Ocp-Apim-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: subscription-key
+      in: query
+security:
+  - apiKeyHeader: []
+  - apiKeyQuery: []

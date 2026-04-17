@@ -1,0 +1,59 @@
+keyVaultName: 'kv-drc-config-prd-ae'
+apiManagementName: 'apim-ae-demo-int-01-apim'
+apiManagementLoggerName: 'appi-quotables-prd-ae-01'
+apiDisplayName: 'Healthcheck API'
+apiName: 'healthcheck'
+apiUrlSuffix: 'healthcheck'
+apiVersion: 'v1'
+openApi: 'Healthcheck.yml'
+namedValues: [
+  {
+    key: 'cache-lookup-value-key',
+    value: 'ip-address'
+  },
+  {
+    key: 'backend-service',
+    value: 'http://todo'
+  },
+  {
+    key: 'forward-request-timeout',
+    value: '1'
+  },
+  {
+    key: 'limit-concurrency-key',
+    value: 'ip-address'
+  },
+  {
+    key: 'limit-concurrency-max-count',
+    value: 1
+  },
+  {
+    key: 'quota-by-key-calls',
+    value: 1
+  },
+  {
+    key: 'quota-by-key-renewal-period-seconds',
+    value: 300
+  },
+  {
+    key: 'rate-limit-by-key-calls',
+    value: 1
+  },
+  {
+    key: 'rate-limit-by-key-renewal-period-seconds',
+    value: 300
+  },
+  {
+    key: 'retry-count',
+    value: 1
+  },
+  {
+    key: 'retry-delta',
+    value: 1
+  }
+]
+secretNamedValues: [
+  {
+    key: 'my-secret'
+  }
+]

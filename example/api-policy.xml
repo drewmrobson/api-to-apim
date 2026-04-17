@@ -1,0 +1,32 @@
+<!-- Global policy - this is applied to all APIs -->
+<policies>
+  <inbound>
+    <!-- Append correlation ID inbound -->
+    <include-fragment fragment-id="x-correlation-id-inbound" />
+
+    <!-- Apply rate limiting -->
+    <include-fragment fragment-id="rate-limit-by-key" />
+
+    <!-- Limit quota by caller key -->
+    <include-fragment fragment-id="quota-by-key" />
+
+  </inbound>
+  <backend>
+  </backend>
+  <outbound>
+    <!-- Append correlation ID outbound -->
+    <include-fragment fragment-id="x-correlation-id-outbound" />
+
+    <!-- Sanitise headers for security -->
+    <include-fragment fragment-id="clean-outbound" />
+
+    <redirect-content-urls />
+  </outbound>
+  <on-error>
+    <!-- Append correlation ID outbound -->
+    <include-fragment fragment-id="x-correlation-id-outbound" />
+
+    <!-- Sanitise headers for security -->
+    <include-fragment fragment-id="clean-outbound" />
+  </on-error>
+</policies>
