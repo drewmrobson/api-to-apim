@@ -1,18 +1,15 @@
 openapi: 3.0.1
 info:
-  version: "0.0.2"
-  title: Healthcheck
-  description: Healthcheck
-  contact:
-    name: Drew Robson
-    email: drew.robson@arinco.com.au
+  version: "1.0.0"
+  title: Example
+  description: Example
 tags:
-  - name: Healthcheck
-    description: Healthcheck
+  - name: Example
+    description: Example
 paths:
-  /healthcheck:
+  /example:
     get:
-      operationId: get-healthcheck
+      operationId: get-example
       tags:
         - Healthcheck
       summary: Healthcheck
@@ -35,11 +32,11 @@ components:
   securitySchemes:
     apiKeyHeader:
       type: apiKey
-      name: Ocp-Apim-Subscription-Key
+      name: Api-Key
       in: header
     apiKeyQuery:
       type: apiKey
-      name: subscription-key
+      name: api-key
       in: query
 security:
   - apiKeyHeader: []
