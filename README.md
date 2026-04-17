@@ -2,29 +2,7 @@
 
 A CLI tool to deploy an API to Azure API Management given only an OpenAPI specification and XML Policy files. Uses a convention-based approach to minimise the configuration required.
 
-## Quickstart
-
-Include these files in your directory:
-
-- An OpenAPI 3 specification file as YAML
-- Any API Management XML Policy files your API uses
-- Any API Managment XML Policy Fragment files your XML Policies use, in a `fragments` directory
-- A file named `yaml-params.yml` to configure deployment values as shown below
-
-```yml
-keyVaultName: "<my-keyvault-name>"
-apiManagementName: "<my-apimanagement-name>"
-apiManagementLoggerName: "<my-apimanagement-logger-name>"
-apiDisplayName: "<API name>"
-apiName: "<apiname>"
-apiUrlSuffix: "<api-url-suffix>"
-apiVersion: "<api-version>"
-openApi: "<open-api-filename>"
-namedValues: [{ key: "<my-named-value-key>", value: "<my-named-value-value>" }]
-secretNamedValues: [{ key: "<my-secret-name>" }]
-```
-
-Then run these commands in your directory:
+As simple as:
 
 ```bash
 az login
@@ -42,15 +20,42 @@ Or in an Azure DevOps YAML Pipeline
       scriptType: "bash"
       inlineScript: |
          cd my-api
-         npm install api-to-apim
          npx api-to-apim --deploy sandbox
 ```
+
+The tool expects these files in your directory:
+
+- An OpenAPI 3 specification file as YAML
+- Any API Management XML Policy files your API uses
+- Any API Managment XML Policy Fragment files your XML Policies use, in a `fragments` directory
+- A file named `yaml-params.yml` to configure deployment values
+
+```yml
+keyVaultName: "<my-keyvault-name>"
+apiManagementName: "<my-apimanagement-name>"
+apiManagementLoggerName: "<my-apimanagement-logger-name>"
+apiDisplayName: "<API name>"
+apiName: "<apiname>"
+apiUrlSuffix: "<api-url-suffix>"
+apiVersion: "<api-version>"
+openApi: "<open-api-filename>"
+namedValues: [{ key: "<my-named-value-key>", value: "<my-named-value-value>" }]
+secretNamedValues: [{ key: "<my-secret-name>" }]
+```
+
+And it will do the rest.
 
 ## Prerequisites
 
 - Node.js 18+ (or any modern Node.js runtime)
 - npm
 - Bash available in PATH (Git Bash works on Windows)
+
+## Installation
+
+```bash
+npm install api-to-apim
+```
 
 ## Usage
 
