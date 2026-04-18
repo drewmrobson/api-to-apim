@@ -5,7 +5,7 @@
  *
  * Generates a Bicep parameters file (.bicepparam) for deploying an API to Azure API Management.
  *
- * Reads a YAML configuration file (default: yaml-params.yml) containing required fields such as
+ * Reads a YAML configuration file (default: api-params.yml) containing required fields such as
  * the API name, APIM instance, Key Vault reference, and OpenAPI spec path. It then:
  *   1. Extracts operation IDs from the OpenAPI spec via list-operations.sh
  *   2. Discovers policy XML files for each operation plus api/product-level policies
@@ -38,7 +38,7 @@ const packageRoot = __dirname;
 
 function usage() {
   console.error('Usage: node generate-bicep.js [yamlFile] [templateFile] [outputFile]');
-  console.error('Defaults: yaml-params.yml template.njk generated.bicepparam');
+  console.error('Defaults: api-params.yml template.njk generated.bicepparam');
 }
 
 function readText(filePath) {
@@ -172,7 +172,7 @@ function main() {
     process.exit(0);
   }
 
-  const yamlFile = path.resolve(cwd, args[0] || 'yaml-params.yml');
+  const yamlFile = path.resolve(cwd, args[0] || 'api-params.yml');
   const templateFile = args[1] ? path.resolve(cwd, args[1]) : resolveHelperScript('template.njk');
   const outputFile = path.resolve(cwd, args[2] || 'generated.bicepparam');
 

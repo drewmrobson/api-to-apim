@@ -15,7 +15,7 @@ function usage() {
   console.error('  npx api-to-apim <yamlFile> <templateFile> <outputFile>');
   console.error('  npx api-to-apim --deploy <resourceGroup> <yamlFile> <templateFile> <outputFile>');
   console.error('');
-  console.error('Defaults: yaml-params.yml template.njk generated.bicepparam');
+  console.error('Defaults: api-params.yml template.njk generated.bicepparam');
 }
 
 function parseArgs(args) {
