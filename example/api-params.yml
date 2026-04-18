@@ -5,7 +5,7 @@ apiDisplayName: 'Example API'
 apiName: 'example'
 apiUrlSuffix: 'example'
 apiVersion: 'v1'
-openApi: 'Example.yml'
+openApi: 'api.yml'
 namedValues: [
   {
     key: 'backend-service',
