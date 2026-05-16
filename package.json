@@ -1,6 +1,6 @@
 {
   "name": "api-to-apim",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "description": "A convention-based CLI tool to deploy an API to Azure API Management from an OpenAPI specification and XML Policy files.",
   "license": "UNLICENSED",
   "type": "commonjs",
