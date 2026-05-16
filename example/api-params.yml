@@ -1,7 +1,7 @@
-keyVaultName: 'kv-drc-config-prd-ae' # 
+keyVaultName: 'kv-drc-config-prd-ae' 
 apiManagementName: 'apim-ae-demo-int-01-apim'
-apiManagementLoggerName: 'appi-quotables-prd-ae-01'
-apiDisplayName: 'Example API'
+apiManagementLoggerName: 'appi-api-to-apim'
+apiDisplayName: 'Example'
 apiName: 'example'
 apiUrlSuffix: 'example'
 apiVersion: 'v1'

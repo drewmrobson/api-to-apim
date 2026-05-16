@@ -1,4 +1,8 @@
 #!/bin/bash
+# Extracts dependencies from Azure API Management policy XML files.
+# Parses fragment-id attributes and {{namedValue}} placeholders to identify
+# policy fragments and named values that the policy depends on.
+# Outputs as a formatted table (default), or filtered lists with --fragments-only / --named-values-only.
 set -euo pipefail
 
 MODE="table"
