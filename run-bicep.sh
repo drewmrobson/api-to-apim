@@ -6,6 +6,7 @@ if [[ -z "${1:-}" ]]; then
   exit 1
 fi
 
+# Execute the bicep file deployment using the generated parameters file to deploy the API
 az deployment group create \
   --resource-group "$1" \
   --template-file main.bicep \

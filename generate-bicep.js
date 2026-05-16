@@ -36,15 +36,18 @@ try {
 const cwd = process.cwd();
 const packageRoot = __dirname;
 
+/** Prints command-line usage information to stderr. */
 function usage() {
   console.error('Usage: node generate-bicep.js [yamlFile] [templateFile] [outputFile]');
   console.error('Defaults: api-params.yml template.njk generated.bicepparam');
 }
 
+/** Reads and returns the contents of a file as a UTF-8 string. */
 function readText(filePath) {
   return fs.readFileSync(filePath, 'utf8');
 }
 
+/** Executes a bash script with arguments and returns its trimmed stdout, throwing on failure. */
 function runScript(scriptPath, args) {
   try {
     return execFileSync('bash', [scriptPath, ...args], {
@@ -60,6 +63,7 @@ function runScript(scriptPath, args) {
   }
 }
 
+/** Splits newline-separated text into an array of trimmed, non-empty lines. */
 function linesToList(text) {
   if (!text) {
     return [];
@@ -70,14 +74,17 @@ function linesToList(text) {
     .filter(Boolean);
 }
 
+/** Returns a new array with duplicates removed and entries sorted alphabetically. */
 function uniqSorted(list) {
   return [...new Set(list)].sort((a, b) => a.localeCompare(b));
 }
 
+/** Returns true if the path exists and is a regular file (not a directory). */
 function hasFile(filePath) {
   return fs.existsSync(filePath) && fs.statSync(filePath).isFile();
 }
 
+/** Locates a helper script by name, checking the working directory first, then the package root. */
 function resolveHelperScript(fileName) {
   const cwdScriptPath = path.resolve(cwd, fileName);
   if (hasFile(cwdScriptPath)) {
@@ -94,6 +101,7 @@ function resolveHelperScript(fileName) {
   );
 }
 
+/** Finds existing policy XML files for operations plus well-known api/product policies. */
 function discoverPolicyFiles(cwdPath, operationIds) {
   const operationPolicyFiles = operationIds
     .map((operationId) => path.resolve(cwdPath, `${operationId}.xml`))
@@ -107,6 +115,7 @@ function discoverPolicyFiles(cwdPath, operationIds) {
   return uniqSorted([...wellKnownPolicyFiles, ...operationPolicyFiles]);
 }
 
+/** Recursively scans policy files to collect all referenced fragment IDs and named value keys. */
 function collectPolicyDependencies(entryPolicyFiles, listPolicyDepsScript, cwdPath) {
   const visitedFiles = new Set();
   const discoveredFragmentIds = new Set();
@@ -147,10 +156,12 @@ function collectPolicyDependencies(entryPolicyFiles, listPolicyDepsScript, cwdPa
   };
 }
 
+/** Returns the value if it's an array, otherwise returns an empty array. */
 function ensureArray(value) {
   return Array.isArray(value) ? value : [];
 }
 
+/** Normalizes secret entries from strings or objects into a consistent {key} object format. */
 function normalizeSecretEntries(rawSecrets) {
   return ensureArray(rawSecrets)
     .map((item) => {
@@ -165,6 +176,7 @@ function normalizeSecretEntries(rawSecrets) {
     .filter(Boolean);
 }
 
+/** Main entry point: parses args, processes YAML/OpenAPI, and generates the Bicep param file. */
 function main() {
   const args = process.argv.slice(2);
   if (args.includes('--help') || args.includes('-h')) {

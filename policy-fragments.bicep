@@ -1,5 +1,5 @@
 ///
-// Deploy XML Policy Fragments to Azure API Management
+// Bicep module to deploy XML Policy Fragments to Azure API Management
 ///
 
 @description('Existing target API Management instance')

@@ -25,12 +25,14 @@ BEGIN {
   output_mode = ENVIRON["LIST_OPERATIONS_MODE"]
 }
 
+# Removes leading and trailing whitespace from a string
 function trim(value) {
   sub(/^[[:space:]]+/, "", value)
   sub(/[[:space:]]+$/, "", value)
   return value
 }
 
+# Strips surrounding double or single quotes from a string after trimming whitespace
 function unquote(value) {
   value = trim(value)
   if ((value ~ /^".*"$/) || (value ~ /^\047.*\047$/)) {
@@ -39,12 +41,14 @@ function unquote(value) {
   return value
 }
 
+# Clears the current operation state to prepare for parsing a new operation
 function reset_operation() {
   method = ""
   operation_id = ""
   summary = ""
 }
 
+# Outputs the current operation (as ID or table row) if complete, then resets state
 function flush_operation() {
   if (current_path != "" && method != "") {
     printed_count++

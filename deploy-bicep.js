@@ -1,4 +1,8 @@
 #!/usr/bin/env node
+/**
+ * Deploys generated Bicep templates to Azure by invoking run-bicep.sh with the specified
+ * resource group. Used as the deployment step after generating Bicep parameter files.
+ */
 
 const { execFileSync } = require('child_process');
 const path = require('path');

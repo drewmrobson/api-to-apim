@@ -1,5 +1,5 @@
 ///
-// Deploy Named Values to Azure API Management
+// Bicep module to deploy Named Values to Azure API Management
 ///
 
 @description('Name of the existing API Management service.')
@@ -33,6 +33,7 @@ resource apimKeyVaultSecretsUserRoleAssignment 'Microsoft.Authorization/roleAssi
   }
 }
 
+// Create plain-text Named Values in API Management
 resource namedValue 'Microsoft.ApiManagement/service/namedValues@2024-10-01-preview' = [
   for nv in namedValues: {
     name: nv.key
@@ -44,6 +45,7 @@ resource namedValue 'Microsoft.ApiManagement/service/namedValues@2024-10-01-prev
   }
 ]
 
+// Create Key-Vault-backed Named Values in API Management
 resource secretNamedValuesResource 'Microsoft.ApiManagement/service/namedValues@2024-10-01-preview' = [
   for nv in secretNamedValues: {
     name: nv.key

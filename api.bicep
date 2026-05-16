@@ -1,3 +1,7 @@
+///
+// Bicep module to deploy an API to Azure API Management from an OpenAPI 3 specification
+///
+
 @description('Existing target API Management instance')
 param apiManagementName string
 
@@ -61,6 +65,7 @@ resource apiVersionSet 'Microsoft.ApiManagement/service/apiVersionSets@2024-10-0
   }
 }
 
+// API
 resource api 'Microsoft.ApiManagement/service/apis@2024-10-01-preview' = {
   parent: apiManagement
   name: apiName
@@ -89,6 +94,12 @@ resource api 'Microsoft.ApiManagement/service/apis@2024-10-01-preview' = {
 }
 
 // Add logging to this API
+// Always log errors
+// Log at Information level
+// Sampling fixed at 100%
+// Log request headers 'x-api-key', 'x-correlation-id'
+// Log response headers 'x-correlation-id'
+// Don't log body content
 resource apiMonitoring 'Microsoft.ApiManagement/service/apis/diagnostics@2024-10-01-preview' = {
   name: 'applicationinsights'
   parent: api
@@ -125,7 +136,7 @@ resource apiMonitoring 'Microsoft.ApiManagement/service/apis/diagnostics@2024-10
   }
 }
 
-// Add Product
+// Product
 resource product 'Microsoft.ApiManagement/service/products@2024-10-01-preview' = {
   name: '${apiName}-product'
   parent: apiManagement
@@ -153,6 +164,7 @@ resource productSubscription 'Microsoft.ApiManagement/service/subscriptions@2024
   }
 }
 
+// Link API to Product
 resource productLink 'Microsoft.ApiManagement/service/products/apiLinks@2024-10-01-preview' = {
   name: '${product.name}-productLink'
   parent: product
@@ -184,7 +196,7 @@ resource apiPolicy 'Microsoft.ApiManagement/service/apis/policies@2024-10-01-pre
   dependsOn: [api]
 }
 
-// Get existing operations created from OpenAPI3
+// Get existing operations created from OpenAPI 3 specification
 resource op 'Microsoft.ApiManagement/service/apis/operations@2024-10-01-preview' existing = [
   for o in operations: {
     name: o.operationName
@@ -208,3 +220,12 @@ resource opPolicy 'Microsoft.ApiManagement/service/apis/operations/policies@2024
 
 @description('Resource ID of the APIM API.')
 output apiId string = api.id
+
+@description('Resource ID of the API Version Set.')
+output versionSetId string = apiVersionSet.id
+
+@description('Resource ID of the APIM Product.')
+output productId string = product.id
+
+@description('Resource ID of the APIM Product Subscription.')
+output productSubscriptionId string = productSubscription.id

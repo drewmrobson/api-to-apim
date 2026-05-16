@@ -1,8 +1,8 @@
 {
   "name": "api-to-apim",
-  "version": "0.9.6",
+  "version": "0.9.7",
   "description": "A convention-based CLI tool to deploy an API to Azure API Management from an OpenAPI specification and XML Policy files.",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "type": "commonjs",
   "main": "api-to-apim.js",
   "bin": {
@@ -43,5 +43,13 @@
   "dependencies": {
     "js-yaml": "^4.1.1",
     "nunjucks": "^3.2.4"
+  },
+  "homepage": "https://github.com/drewmrobson/api-to-apim",
+  "bugs": {
+    "url": "https://github.com/drewmrobson/api-to-apim/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drewmrobson/api-to-apim.git"
   }
 }

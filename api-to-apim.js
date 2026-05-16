@@ -1,4 +1,9 @@
 #!/usr/bin/env node
+/**
+ * CLI tool for converting OpenAPI specifications to Azure API Management (APIM) Bicep deployments.
+ * Generates Bicep parameter files from YAML configuration and Nunjucks templates, with optional
+ * deployment to a specified Azure resource group.
+ */
 
 const path = require('path');
 const { execFileSync } = require('child_process');

@@ -1,14 +1,38 @@
+// This nunjucks template is used to generate a bicepparams file that can be deployed to Azure. 
+// It defines parameters for the Bicep file and uses loops to populate arrays of named values, 
+// secret named values, policy fragments, and operations. 
+// The template also loads the content of OpenAPI files and policy fragment XML files to be included in the Bicep file.
+
 using 'main.bicep'
 
+// Required. Name of Key Vault for Key-Vault-backed Named Values
 param keyVaultName = '{{keyVaultName}}'
+
+// Required. Target API Management instance name
 param apiManagementName = '{{apiManagementName}}'
+
+// Required. Name of the logger which has already been configured in the API Management instance
 param apiManagementLoggerName = '{{apiManagementLoggerName}}'
+
+// Required. Display name of the API as it will appear in the Azure portal
 param apiDisplayName = '{{apiDisplayName}}'
+
+// Required. ID of the API, all lowercase, no spaces
 param apiName = '{{apiName}}'
+
+// Required. Suffix of the API URL
 param apiUrlSuffix = '{{apiUrlSuffix}}'
+
+// Required. Version of the API, e.g. 'v1'
 param apiVersion = '{{apiVersion}}'
+
+// Required. Name of the OpenAPI file (without the .yml extension) that describes the API
 param openApiTextContent = loadTextContent('{{openApi}}.yml')
+
+// Required. Name of the OpenAPI file (without the .yml extension) that describes the API
 param openApiYamlContent = loadYamlContent('{{openApi}}.yml')
+
+// Named values will be discovered and inserted into the bicepparams file here
 param namedValues = [
   {% for nv in namedValues %}{
     key: '{{ nv.key }}'
@@ -16,12 +40,16 @@ param namedValues = [
   }
   {% endfor %}
 ]
+
+// Key-Vault-backed Named Values will be discovered and inserted into the bicepparams file here
 param secretNamedValues = [
   {% for s in secrets %}{
     key: '{{ s.key }}'
   }
   {% endfor %}
 ]
+
+// Policy fragments will be discovered and inserted into the bicepparams file here
 param policyFragments = [
 {% for pf in policyFragments %}{
     id: '{{ pf }}'
@@ -29,6 +57,8 @@ param policyFragments = [
     value: loadTextContent('fragments/{{ pf }}.xml')
   }
 {% endfor %}]
+
+// Operations will be discovered in the OpenAPI file and inserted into the bicepparams file here
 param operations = [
   {% for o in operations %}{
     operationName: '{{ o }}'

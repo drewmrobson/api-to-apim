@@ -1,3 +1,7 @@
+///
+// Bicep module to deploy Policy Fragments, Named Values and an API to Azure API Management
+///
+
 @description('Name of existing API Management to use.')
 param apiManagementName string
 
@@ -58,7 +62,7 @@ module policyFragmentsModule 'policy-fragments.bicep' = {
   }
 }
 
-// APIs
+// API
 module api 'api.bicep' = {
   name: '${uniqueString(deployment().name, apiManagementName)}-api'
   params: {
